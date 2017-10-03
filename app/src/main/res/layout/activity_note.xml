@@ -17,7 +17,9 @@
         android:ems="10"
         android:hint="Title:"
         android:inputType="textPersonName"
+        android:maxLines="1"
         android:singleLine="true" />
+
 
     <EditText
         android:id="@+id/noteContent"
@@ -28,7 +30,7 @@
         android:ems="10"
         android:gravity="top"
         android:hint="Enter your note here"
-        android:inputType="textPersonName" />
+        android:inputType="textMultiLine" />
 
 </android.widget.RelativeLayout>
 
