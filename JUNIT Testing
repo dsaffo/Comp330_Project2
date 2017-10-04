@@ -1,0 +1,21 @@
+J Unit code testing
+
+Requirements link to install: https://www.tutorialspoint.com/junit/junit_environment_setup.htm
+In order to first initialize with the coding, the necessary software must be installed. Java JDK must be installed. NOTE: IT is important the user follow
+these steps in order to guarantee successful instalation.
+
+
+-Our choice of IDE is Android Studio, so I created a basic template from the link to see if everything is working correctly. Im pleased to inform you it is.
+
+
+IE:
+import static org.junit.Assert.assertEquals;
+
+public class TestJunit {
+   @Test
+	
+   public void testAdd() {
+      String str = "Junit is working fine";
+      assertEquals("Junit is working fine",str);
+   }
+}
