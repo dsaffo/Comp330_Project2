@@ -12,6 +12,9 @@ public class NoteActivity extends AppCompatActivity {
     private EditText mEtTitle;
     private EditText mEtContent;
 
+    private String nNoteFileName;
+    private Note nLoadedNote;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +23,16 @@ public class NoteActivity extends AppCompatActivity {
         //finding the indivual title and content and saving them
         mEtTitle = (EditText) findViewById(R.id.noteTitle);
         mEtContent = (EditText) findViewById(R.id.noteContent);
+
+        nNoteFileName = getIntent().getStringExtra("NOTE_FILE");
+        if(nNoteFileName != null && !nNoteFileName.isEmpty()){
+            nLoadedNote = Utilities.getNoteByName(this, nNoteFileName);
+
+            if(nLoadedNote != null){
+                mEtTitle.setText(nLoadedNote.getnTitle());
+                mEtContent.setText(nLoadedNote.getnContent());
+            }
+        }
 
     }
 
@@ -50,7 +63,7 @@ public class NoteActivity extends AppCompatActivity {
 
        if(Utilities.saveNote(this, note)){
            Toast.makeText(this, "Your note is saved", Toast.LENGTH_SHORT).show();
-
+            finish();
        }else{
            Toast.makeText(this, "Cannot save, please make sure there is enough space on your device", Toast.LENGTH_SHORT).show();
            finish();
