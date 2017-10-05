@@ -5,6 +5,7 @@ import android.icu.text.SimpleDateFormat;
 import android.icu.util.TimeZone;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -16,11 +17,13 @@ public class Note implements Serializable{
     private long nDateTime;
     private String nTitle;
     private String nContent;
+    private ArrayList nMentions;
 
-    public Note(long DateTime, String Title, String Content) {
+    public Note(long DateTime, String Title, String Content, ArrayList<String> Mentions) {
         nDateTime = DateTime;
         nTitle = Title;
         nContent = Content;
+        nMentions = Mentions;
     }
 
     public long getnDateTime() {
@@ -35,6 +38,8 @@ public class Note implements Serializable{
         return nContent;
     }
 
+    public ArrayList<String> getnMentions() { return nMentions; }
+
     public void setnDateTime(long nDateTime) {
         this.nDateTime = nDateTime;
     }
@@ -46,6 +51,8 @@ public class Note implements Serializable{
     public void setnContent(String nContent) {
         this.nContent = nContent;
     }
+
+    public void setnMentions(ArrayList<String> nMentions) { this.nMentions = nMentions; }
 
     public String getDateTimeAsString(Context context){
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", context.getResources().getConfiguration().locale);
