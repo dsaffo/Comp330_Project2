@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by Brendan on 10/3/17.
@@ -105,5 +107,18 @@ public class Utilities {
             return note;
         }
         return null;
+    }
+
+    public static ArrayList<String> sortMentions (String text){
+        ArrayList<String> mentions = new ArrayList<String>();
+
+        Pattern pattern = Pattern.compile("(?<=^|\\s)\\@\\w+");
+
+        Matcher matcher = pattern.matcher(text);
+        while (matcher.find())
+        {
+            mentions.add(matcher.group());
+        }
+        return mentions;
     }
 }
