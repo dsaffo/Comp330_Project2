@@ -24,4 +24,18 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         tools:text="CONTENT" />
+
+    <TextView
+        android:id="@+id/list_note_mentions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        tools:text="MENTIONS" />
+
+    <TextView
+        android:id="@+id/list_note_topics"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        tools:text="TOPICS" />
 </LinearLayout>

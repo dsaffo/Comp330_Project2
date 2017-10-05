@@ -60,7 +60,7 @@ public class NoteActivity extends AppCompatActivity {
 
         //creating a new note using the three parameters from the constructor
         Note note = new Note(System.currentTimeMillis(), mEtTitle.getText().toString(), mEtContent.getText().toString()
-        ,Utilities.sortMentions(mEtContent.getText().toString()));
+        ,Utilities.sortMarks("@",mEtContent.getText().toString()),Utilities.sortMarks("#",mEtContent.getText().toString()));
 
        if(Utilities.saveNote(this, note)){
            Toast.makeText(this, "Your note is saved", Toast.LENGTH_SHORT).show();

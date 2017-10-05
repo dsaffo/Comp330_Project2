@@ -18,12 +18,14 @@ public class Note implements Serializable{
     private String nTitle;
     private String nContent;
     private ArrayList nMentions;
+    private ArrayList nTopics;
 
-    public Note(long DateTime, String Title, String Content, ArrayList<String> Mentions) {
+    public Note(long DateTime, String Title, String Content, ArrayList<String> Mentions, ArrayList<String> Topics) {
         nDateTime = DateTime;
         nTitle = Title;
         nContent = Content;
         nMentions = Mentions;
+        nTopics = Topics;
     }
 
     public long getnDateTime() {
@@ -40,6 +42,8 @@ public class Note implements Serializable{
 
     public ArrayList<String> getnMentions() { return nMentions; }
 
+    public ArrayList<String> getnTopics() { return nTopics; }
+
     public void setnDateTime(long nDateTime) {
         this.nDateTime = nDateTime;
     }
@@ -53,6 +57,8 @@ public class Note implements Serializable{
     }
 
     public void setnMentions(ArrayList<String> nMentions) { this.nMentions = nMentions; }
+
+    public void setnTopics(ArrayList<String> nTopics) { this.nTopics = nTopics; }
 
     public String getDateTimeAsString(Context context){
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", context.getResources().getConfiguration().locale);

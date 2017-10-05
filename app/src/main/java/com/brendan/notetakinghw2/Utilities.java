@@ -109,10 +109,10 @@ public class Utilities {
         return null;
     }
 
-    public static ArrayList<String> sortMentions (String text){
+    public static ArrayList<String> sortMarks (String mark, String text){
         ArrayList<String> mentions = new ArrayList<String>();
-
-        Pattern pattern = Pattern.compile("(?<=^|\\s)\\@\\w+");
+        String regex = "(?<=^|\\s)\\" + mark +"\\w+";
+        Pattern pattern = Pattern.compile(regex);
 
         Matcher matcher = pattern.matcher(text);
         while (matcher.find())
