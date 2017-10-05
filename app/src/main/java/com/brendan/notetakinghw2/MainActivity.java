@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
             NoteAdaptor na = new NoteAdaptor(this, R.layout.item_note, notes);
             nListViewNotes.setAdapter(na);
 
+            //gets the file based what posistion the user clicked on
             nListViewNotes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
