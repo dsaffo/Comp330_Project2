@@ -12,4 +12,12 @@
         android:orderInCategory="0"
         app:showAsAction="always"/>
 
+    <item
+        android:enabled="true"
+        android:title="create"
+        android:id="@+id/action_main_new_search"
+        android:icon="@android:drawable/ic_menu_search"
+        android:orderInCategory="0"
+        app:showAsAction="always"/>
+
 </menu>
