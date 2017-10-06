@@ -19,6 +19,8 @@ import java.util.regex.Pattern;
 
 public class Utilities {
 
+
+
     public static final String FILE_EXTENSION = ".bin";
 
     //boolean to see if save was successful or not
@@ -109,10 +111,20 @@ public class Utilities {
         return null;
     }
 
+    public static boolean checkIdentifiers (ArrayList<Note> notes, String id){
+
+
+        return false;
+    }
+
     public static ArrayList<String> sortMarks (String mark, String text){
         ArrayList<String> mentions = new ArrayList<String>();
         String regex = "(?<=^|\\s)\\" + mark +"\\w+";
         Pattern pattern = Pattern.compile(regex);
+
+        if(mark == "!") {
+
+        }
 
         Matcher matcher = pattern.matcher(text);
         while (matcher.find())

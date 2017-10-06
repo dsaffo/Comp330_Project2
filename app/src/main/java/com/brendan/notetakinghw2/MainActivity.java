@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ListView nListViewNotes;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -54,6 +54,7 @@ public class NoteAdaptor extends ArrayAdapter<Note> {
             }else{
                 content.setText(note.getnContent());
             }
+
             if (note.getnContent().length() > 0) {
                 String mentionList = Arrays.toString(note.getnMentions().toArray()).replace("[", "").replace("]", "");
                 mentions.setText("Mentions: " + mentionList);
