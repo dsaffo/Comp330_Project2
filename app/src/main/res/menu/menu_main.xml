@@ -20,4 +20,12 @@
         android:orderInCategory="0"
         app:showAsAction="always"/>
 
+    <item
+        android:enabled="true"
+        android:title="create"
+        android:id="@+id/action_main_new_dots"
+        android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:orderInCategory="0"
+        app:showAsAction="always"/>
+
 </menu>
