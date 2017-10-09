@@ -133,4 +133,13 @@ public class Utilities {
         }
         return mentions;
     }
+
+    public static void deleteNote(Context context, String fileName) {
+        File dir = context.getFilesDir();
+        File file = new File(dir, fileName);
+
+        if(file.exists()){
+            file.delete();
+        }
+    }
 }
