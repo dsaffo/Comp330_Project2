@@ -1,6 +1,6 @@
 package Comp330_Project2.app.test;
 
-import static org.junit.Assert.*;
+//import static org.junit.Assert.*;
 
 /**
  * Created by jorgeramirez on 10/8/17.
@@ -14,13 +14,18 @@ public class TestDbTest {
         double delta = .1;
 
         ConverterUtil converterUtil = new ConverterUtil();
-        output = converterUtil(convertFahrenheitToCelsius(input);
+        output = converterUtil.convertCelsiusToFahrenheit(input);
 
-        assertEquals()
+        assertEquals(expected, output, delta);
     }
 
     @org.junit.Test
     public void convertCelsiusToFahrenheit() throws Exception {
+        float input = 100;
+        float output;
+        float expected = 212;
+        double delta = .1;
+
 
     }
 
