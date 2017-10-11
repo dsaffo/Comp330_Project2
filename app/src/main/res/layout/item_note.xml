@@ -25,7 +25,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         tools:text="CONTENT" />
 
-    <TextView
+    <!--<TextView
         android:id="@+id/list_note_mentions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,5 +37,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        tools:text="TOPICS"/>
+        tools:text="TOPICS"/>-->
 </LinearLayout>

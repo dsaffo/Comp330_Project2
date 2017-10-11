@@ -1,6 +1,7 @@
 package com.brendan.notetakinghw2;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,6 +10,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -111,10 +113,25 @@ public class Utilities {
         return null;
     }
 
-    public static boolean checkIdentifiers (ArrayList<Note> notes, String id){
+    public static ArrayList<String> checkIdentifiers (ArrayList<Note> notes, String text, Boolean edit){
+        ArrayList<String> currentIDs = new ArrayList<String>();;
+        ArrayList<String> IDs = sortMarks("!", text);
+        for (int i = 0; i < notes.size(); i++){
+            currentIDs.addAll(notes.get(i).getnIDs());
+        }
 
+        if (edit == Boolean.TRUE){
+            currentIDs.removeAll(IDs);
+        }
 
-        return false;
+        Log.d("Current Ids: ", Arrays.toString(currentIDs.toArray()).replace("[", "").replace("]", ""));
+        for (int i = 0; i < IDs.size(); i++){
+            if (currentIDs.contains(IDs.get(i))){
+                Log.d("The Same?", "Yes");
+                IDs.remove(i);
+            }
+        }
+        return IDs;
     }
 
     public static ArrayList<String> sortMarks (String mark, String text){

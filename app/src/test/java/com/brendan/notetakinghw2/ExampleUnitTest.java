@@ -2,6 +2,8 @@ package com.brendan.notetakinghw2;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 /**
@@ -15,7 +17,10 @@ public class ExampleUnitTest {
     String title1 = "test";
     String content1 = "This is a test #test";
     Long time = 1L;
-    Note test1 = new Note(time,title1,content1,Utilities.sortMarks("@", content1), Utilities.sortMarks("#", content1));
+    ArrayList<String> list = new ArrayList<String>();
+
+
+    Note test1 = new Note(time,title1,content1,Utilities.sortMarks("@", content1), Utilities.sortMarks("#", content1), list);
 
     @Test
     public void addition_isCorrect() throws Exception {
