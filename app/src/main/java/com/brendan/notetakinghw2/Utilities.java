@@ -116,6 +116,7 @@ public class Utilities {
     public static ArrayList<String> checkIdentifiers (ArrayList<Note> notes, String text, Boolean edit, Context context, String filename){
         ArrayList<String> currentIDs = new ArrayList<String>();;
         ArrayList<String> IDs = sortMarks("!", text);
+        ArrayList<String> newIDs = new ArrayList<String>();
         for (int i = 0; i < notes.size(); i++){
             currentIDs.addAll(notes.get(i).getnIDs());
         }
@@ -126,13 +127,20 @@ public class Utilities {
         }
 
         Log.d("Current Ids: ", Arrays.toString(currentIDs.toArray()).replace("[", "").replace("]", ""));
+        Log.d("Note Ids: ", Arrays.toString(IDs.toArray()).replace("[", "").replace("]", ""));
         for (int i = 0; i < IDs.size(); i++){
             if (currentIDs.contains(IDs.get(i))){
-                Log.d("The Same?", "Yes");
-                IDs.remove(i);
+                Log.d("same", IDs.get(i).toString());
+            }
+            else {
+                Log.d("new", IDs.get(i).toString());
+                currentIDs.add(IDs.get(i));
+                newIDs.add(IDs.get(i));
+
             }
         }
-        return IDs;
+        Log.d("list of note IDs", Arrays.toString(newIDs.toArray()).replace("[", "").replace("]", ""));
+        return newIDs;
     }
 
     public static ArrayList<String> sortMarks (String mark, String text){

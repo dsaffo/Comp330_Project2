@@ -47,9 +47,10 @@ public class NoteActivity extends AppCompatActivity {
             if(nLoadedNote != null){
                 mEtTitle.setText(nLoadedNote.getnTitle());
                 mEtContent.setText(nLoadedNote.getnContent());
-                mEtMentions.setText(Arrays.toString(nLoadedNote.getnMentions().toArray()).replace("[", "").replace("]", ""));
-                mEtTopics.setText(Arrays.toString(nLoadedNote.getnTopics().toArray()).replace("[", "").replace("]", ""));
-                mEtIdentifiers.setText(Arrays.toString(nLoadedNote.getnIDs().toArray()).replace("[", "").replace("]", ""));
+                mEtMentions.setText("Mentions: " + Arrays.toString(nLoadedNote.getnMentions().toArray()).replace("[", "").replace("]", ""));
+                mEtTopics.setText("Topics: " + Arrays.toString(nLoadedNote.getnTopics().toArray()).replace("[", "").replace("]", ""));
+                mEtIdentifiers.setText("Identifiers: " + Arrays.toString(nLoadedNote.getnIDs().toArray()).replace("[", "").replace("]", ""));
+                mEtRefrences.setText("Refrences: " + Arrays.toString(nLoadedNote.getnRefs().toArray()).replace("[", "").replace("]", ""));
             }
         }
 
@@ -96,22 +97,24 @@ public class NoteActivity extends AppCompatActivity {
             Long time = System.currentTimeMillis();
             String title = mEtTitle.getText().toString();
             String content = mEtContent.getText().toString();
-            ArrayList<String> mentions = Utilities.sortMarks("@", mEtContent.getText().toString());
-            ArrayList<String> topics = Utilities.sortMarks("#", mEtContent.getText().toString());
-            ArrayList<String> Ids = Utilities.checkIdentifiers(Utilities.getAllSavedNotes(getApplicationContext()),mEtContent.getText().toString(),
+            ArrayList<String> mentions = Utilities.sortMarks("@", content);
+            ArrayList<String> topics = Utilities.sortMarks("#", content);
+            ArrayList<String> Ids = Utilities.checkIdentifiers(Utilities.getAllSavedNotes(getApplicationContext()),content,
                     false, getApplicationContext(), "nan");
+            ArrayList<String> Refs = Utilities.sortMarks("^", content);
             Log.d("is null?", "yes");
-            note = new Note(time,title,content,mentions,topics,Ids);
+            note = new Note(time,title,content,mentions,topics,Ids,Refs);
         }else{
             Long time = System.currentTimeMillis();
             String title = mEtTitle.getText().toString();
             String content = mEtContent.getText().toString();
-            ArrayList<String> mentions = Utilities.sortMarks("@", mEtContent.getText().toString());
-            ArrayList<String> topics = Utilities.sortMarks("#", mEtContent.getText().toString());
-            ArrayList<String> IdsEdit = Utilities.checkIdentifiers(Utilities.getAllSavedNotes(getApplicationContext()),mEtContent.getText().toString(),
+            ArrayList<String> mentions = Utilities.sortMarks("@", content);
+            ArrayList<String> topics = Utilities.sortMarks("#", content);
+            ArrayList<String> IdsEdit = Utilities.checkIdentifiers(Utilities.getAllSavedNotes(getApplicationContext()),content,
                     true, getApplicationContext(), nLoadedNote.getnDateTime()+ Utilities.FILE_EXTENSION);
+            ArrayList<String> Refs = Utilities.sortMarks("^", content);
             Utilities.deleteNote(getApplicationContext(), nLoadedNote.getnDateTime()+ Utilities.FILE_EXTENSION);
-            note = new Note(time,title,content,mentions,topics,IdsEdit);
+            note = new Note(time,title,content,mentions,topics,IdsEdit,Refs);
 
         }
 
