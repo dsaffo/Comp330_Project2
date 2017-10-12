@@ -113,15 +113,16 @@ public class Utilities {
         return null;
     }
 
-    public static ArrayList<String> checkIdentifiers (ArrayList<Note> notes, String text, Boolean edit){
+    public static ArrayList<String> checkIdentifiers (ArrayList<Note> notes, String text, Boolean edit, Context context, String filename){
         ArrayList<String> currentIDs = new ArrayList<String>();;
         ArrayList<String> IDs = sortMarks("!", text);
         for (int i = 0; i < notes.size(); i++){
             currentIDs.addAll(notes.get(i).getnIDs());
         }
 
-        if (edit == Boolean.TRUE){
-            currentIDs.removeAll(IDs);
+        if (edit == true){
+            Note currentNote = getNoteByName(context,filename);
+            currentIDs.removeAll(currentNote.getnIDs());
         }
 
         Log.d("Current Ids: ", Arrays.toString(currentIDs.toArray()).replace("[", "").replace("]", ""));

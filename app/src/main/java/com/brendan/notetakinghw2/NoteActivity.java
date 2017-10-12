@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class NoteActivity extends AppCompatActivity {
@@ -90,15 +91,27 @@ public class NoteActivity extends AppCompatActivity {
        /* Note note = new Note(System.currentTimeMillis(), mEtTitle.getText().toString(), mEtContent.getText().toString()
                 , Utilities.sortMarks("@", mEtContent.getText().toString()), Utilities.sortMarks("#", mEtContent.getText().toString()));
         */
+
         if(nLoadedNote == null){
+            Long time = System.currentTimeMillis();
+            String title = mEtTitle.getText().toString();
+            String content = mEtContent.getText().toString();
+            ArrayList<String> mentions = Utilities.sortMarks("@", mEtContent.getText().toString());
+            ArrayList<String> topics = Utilities.sortMarks("#", mEtContent.getText().toString());
+            ArrayList<String> Ids = Utilities.checkIdentifiers(Utilities.getAllSavedNotes(getApplicationContext()),mEtContent.getText().toString(),
+                    false, getApplicationContext(), "nan");
             Log.d("is null?", "yes");
-            note = new Note(System.currentTimeMillis(), mEtTitle.getText().toString(), mEtContent.getText().toString()
-                    , Utilities.sortMarks("@", mEtContent.getText().toString()), Utilities.sortMarks("#", mEtContent.getText().toString())
-            ,Utilities.checkIdentifiers(Utilities.getAllSavedNotes(getApplicationContext()),mEtContent.getText().toString(), false));
+            note = new Note(time,title,content,mentions,topics,Ids);
         }else{
-            note = new Note(nLoadedNote.getnDateTime(), mEtTitle.getText().toString(), mEtContent.getText().toString()
-                    , Utilities.sortMarks("@", mEtContent.getText().toString()), Utilities.sortMarks("#", mEtContent.getText().toString())
-            ,Utilities.checkIdentifiers(Utilities.getAllSavedNotes(getApplicationContext()),mEtContent.getText().toString(), true));
+            Long time = System.currentTimeMillis();
+            String title = mEtTitle.getText().toString();
+            String content = mEtContent.getText().toString();
+            ArrayList<String> mentions = Utilities.sortMarks("@", mEtContent.getText().toString());
+            ArrayList<String> topics = Utilities.sortMarks("#", mEtContent.getText().toString());
+            ArrayList<String> IdsEdit = Utilities.checkIdentifiers(Utilities.getAllSavedNotes(getApplicationContext()),mEtContent.getText().toString(),
+                    true, getApplicationContext(), nLoadedNote.getnDateTime()+ Utilities.FILE_EXTENSION);
+            Utilities.deleteNote(getApplicationContext(), nLoadedNote.getnDateTime()+ Utilities.FILE_EXTENSION);
+            note = new Note(time,title,content,mentions,topics,IdsEdit);
 
         }
 
