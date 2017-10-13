@@ -19,13 +19,18 @@ public class Note implements Serializable{
     private String nContent;
     private ArrayList nMentions;
     private ArrayList nTopics;
+    private ArrayList nIDs;
+    private ArrayList nRefs;
 
-    public Note(long DateTime, String Title, String Content, ArrayList<String> Mentions, ArrayList<String> Topics) {
+    public Note(long DateTime, String Title, String Content, ArrayList<String> Mentions, ArrayList<String> Topics, ArrayList<String> IDs
+            ,ArrayList<String> Refs) {
         nDateTime = DateTime;
         nTitle = Title;
         nContent = Content;
         nMentions = Mentions;
         nTopics = Topics;
+        nIDs = IDs;
+        nRefs = Refs;
     }
 
     public long getnDateTime() {
@@ -43,6 +48,10 @@ public class Note implements Serializable{
     public ArrayList<String> getnMentions() { return nMentions; }
 
     public ArrayList<String> getnTopics() { return nTopics; }
+
+    public ArrayList<String> getnIDs() { return nIDs; }
+
+    public ArrayList<String> getnRefs() { return nRefs; }
 
     public void setnDateTime(long nDateTime) {
         this.nDateTime = nDateTime;
