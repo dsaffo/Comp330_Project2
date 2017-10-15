@@ -11,10 +11,25 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+import com.google.api.client.util.DateTime;
+import com.google.api.client.util.ExponentialBackOff;
+import com.google.api.services.calendar.Calendar;
+import com.google.api.services.calendar.CalendarScopes;
+import com.google.api.services.calendar.model.Event;
+import com.google.api.services.calendar.model.Events;
+import com.google.api.services.calendar.model.EventAttendee;
+import com.google.api.services.calendar.model.EventDateTime;
+import com.google.api.services.calendar.model.EventReminder;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class NoteActivity extends AppCompatActivity {
+
+    GoogleAccountCredential mCredential;
+
+    private static final String[] SCOPES = { CalendarScopes.CALENDAR};
 
     private EditText mEtTitle;
     private EditText mEtContent;
@@ -53,6 +68,10 @@ public class NoteActivity extends AppCompatActivity {
                 mEtRefrences.setText("Refrences: " + Arrays.toString(nLoadedNote.getnRefs().toArray()).replace("[", "").replace("]", ""));
             }
         }
+
+        mCredential = GoogleAccountCredential.usingOAuth2(
+                getApplicationContext(), Arrays.asList(SCOPES))
+                .setBackOff(new ExponentialBackOff());
 
     }
 
@@ -104,6 +123,7 @@ public class NoteActivity extends AppCompatActivity {
             ArrayList<String> Refs = Utilities.sortMarks("^", content);
             Log.d("is null?", "yes");
             note = new Note(time,title,content,mentions,topics,Ids,Refs);
+            //Utilities.createEvent(mCredential);
         }else{
             Long time = System.currentTimeMillis();
             String title = mEtTitle.getText().toString();
@@ -148,5 +168,7 @@ public class NoteActivity extends AppCompatActivity {
                 dialog.show();
             }
     }
+
+
 }
 
