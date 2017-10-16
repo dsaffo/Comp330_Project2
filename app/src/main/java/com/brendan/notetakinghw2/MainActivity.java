@@ -293,6 +293,7 @@ public class MainActivity extends AppCompatActivity  {
         @Override
         protected List<String> doInBackground(Void... params) {
             try {
+                createEvent();
                 return getDataFromApi();
             } catch (Exception e) {
                 mLastError = e;
@@ -330,6 +331,52 @@ public class MainActivity extends AppCompatActivity  {
             }
             Log.d("event test: ", eventStrings.get(0));
             return eventStrings;
+        }
+
+        public void createEvent() {
+
+            Event event = new Event()
+                    .setSummary("Test")
+                    .setLocation("Chicago")
+                    .setDescription("Test Event 1");
+
+            DateTime startDateTime = new DateTime("2017-10-17T18:10:00+06:00");
+            EventDateTime start = new EventDateTime()
+                    .setDateTime(startDateTime)
+                    .setTimeZone("Asia/Dhaka");
+            event.setStart(start);
+
+            DateTime endDateTime = new DateTime("2017-10-17T18:40:00+06:00");
+            EventDateTime end = new EventDateTime()
+                    .setDateTime(endDateTime)
+                    .setTimeZone("Asia/Dhaka");
+            event.setEnd(end);
+
+            String[] recurrence = new String[]{"RRULE:FREQ=DAILY;COUNT=2"};
+            event.setRecurrence(Arrays.asList(recurrence));
+
+            EventAttendee[] attendees = new EventAttendee[]{
+                    new EventAttendee().setEmail("abir@aksdj.com"),
+                    new EventAttendee().setEmail("asdasd@andlk.com"),
+            };
+            event.setAttendees(Arrays.asList(attendees));
+
+            EventReminder[] reminderOverrides = new EventReminder[]{
+                    new EventReminder().setMethod("email").setMinutes(24 * 60),
+                    new EventReminder().setMethod("popup").setMinutes(10),
+            };
+            Event.Reminders reminders = new Event.Reminders()
+                    .setUseDefault(false)
+                    .setOverrides(Arrays.asList(reminderOverrides));
+            event.setReminders(reminders);
+
+            String calendarId = "primary";
+            try {
+                event = mService.events().insert(calendarId, event).execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.printf("Event created: %s\n", event.getHtmlLink());
         }
 
 
