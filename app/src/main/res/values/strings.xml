@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Note Taking HW2</string>
+
+    <string-array name="search_types">
+        <item>Sort by Date</item>
+        <item>Sort by Mentions</item>
+        <item>Sort by Topics</item>
+        <item>Sort by Identifiers</item>
+        <item>Sort by References</item>
+
+    </string-array>
+
 </resources>

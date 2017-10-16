@@ -81,6 +81,14 @@ public class MainActivity extends AppCompatActivity  {
 
         getResultsFromApi();
 
+        Spinner mySpinner = (Spinner) findViewById(R.id.spinner1);
+
+        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1,
+                getResources().getStringArray(R.array.search_types));
+
+        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mySpinner.setAdapter(myAdapter);
+
     }
 
 
