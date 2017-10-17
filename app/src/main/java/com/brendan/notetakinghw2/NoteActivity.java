@@ -50,7 +50,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 public class NoteActivity extends AppCompatActivity {
 
-    public String eventText = "";
+    public String eventText = "default";
     public static GoogleAccountCredential mCredential;
     private static final String[] SCOPES = { CalendarScopes.CALENDAR};
     static final int REQUEST_ACCOUNT_PICKER = 1000;
@@ -102,7 +102,7 @@ public class NoteActivity extends AppCompatActivity {
                 getApplicationContext(), Arrays.asList(SCOPES))
                 .setBackOff(new ExponentialBackOff());
 
-        //getResultsFromApi();
+        getResultsFromApi();
 
     }
 
@@ -137,7 +137,7 @@ public class NoteActivity extends AppCompatActivity {
         } else if (! isDeviceOnline()) {
             // mOutputText.setText("No network connection available.");
         } else {
-            new MakeRequestTask(mCredential).execute();
+            //new MakeRequestTask(mCredential).execute();
         }
     }
 
@@ -385,36 +385,7 @@ public class NoteActivity extends AppCompatActivity {
             return eventStrings;
         }
 
-        public void createEvent() {
 
-            Event event = new Event()
-                    .setSummary("Test")
-                    .setLocation("Chicago")
-                    .setDescription("Test Event 1");
-
-            DateTime startDateTime = new DateTime("2017-10-17T18:10:00+06:00");
-            EventDateTime start = new EventDateTime()
-                    .setDateTime(startDateTime)
-                    .setTimeZone("Asia/Dhaka");
-            event.setStart(start);
-
-            DateTime endDateTime = new DateTime("2017-10-17T18:40:00+06:00");
-            EventDateTime end = new EventDateTime()
-                    .setDateTime(endDateTime)
-                    .setTimeZone("Asia/Dhaka");
-            event.setEnd(end);
-
-            String[] recurrence = new String[]{"RRULE:FREQ=DAILY;COUNT=2"};
-            event.setRecurrence(Arrays.asList(recurrence));
-
-            String calendarId = "primary";
-            try {
-                event = mService.events().insert(calendarId, event).execute();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            System.out.printf("Event created: %s\n", event.getHtmlLink());
-        }
 
 
         @Override
@@ -505,7 +476,7 @@ public class NoteActivity extends AppCompatActivity {
         if (Utilities.saveNote(this, note)) {
             if (Utilities.gCal(note) == true && edit == false){
                 eventText = Utilities.removeMarks(note);
-                getResultsFromApi();
+                new MakeRequestTask(mCredential).execute();
             }
             Toast.makeText(this, "Your note is saved", Toast.LENGTH_SHORT).show();
 
