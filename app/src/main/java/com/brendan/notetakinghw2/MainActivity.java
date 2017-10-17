@@ -10,8 +10,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+//import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -20,6 +22,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -52,6 +55,10 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 public class MainActivity extends AppCompatActivity  {
 
+    NoteAdaptor na;
+    //ArrayAdapter adapter;
+    ArrayList<Note> notes;
+
     private ListView nListViewNotes;
 
     public static GoogleAccountCredential statCred;
@@ -76,6 +83,26 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         nListViewNotes = (ListView) findViewById(R.id.mainListViewNotes);
+
+        /*
+        ArrayList<Note> notes = Utilities.getAllSavedNotes(this);
+        SearchView searchView = (SearchView) findViewById(R.id.action_main_new_search);
+        na = new NoteAdaptor(this, R.layout.item_note, notes);
+        nListViewNotes.setAdapter(na);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                na.getFilter().filter(newText);
+
+                return false;
+            }
+        });*/
+
 
         mCredential = GoogleAccountCredential.usingOAuth2(
                 getApplicationContext(), Arrays.asList(SCOPES))
@@ -427,8 +454,29 @@ public class MainActivity extends AppCompatActivity  {
     //adds the "+" to the menu
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+
+        MenuItem item = menu.findItem(R.id.action_main_new_search);
+        SearchView searchView = (SearchView) item.getActionView();
+        notes = Utilities.getAllSavedNotes(this);
+
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                na.getFilter().filter(newText);
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+        //return true;
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -447,14 +495,16 @@ public class MainActivity extends AppCompatActivity  {
         super.onResume();
         nListViewNotes.setAdapter(null);
 
-        ArrayList<Note> notes = Utilities.getAllSavedNotes(this);
+        /*ArrayList<Note>*/ notes = Utilities.getAllSavedNotes(this);
 
         if(notes == null || notes.size() ==0){
             Toast.makeText(this, "You have no notes saved!", Toast.LENGTH_SHORT).show();
             return;
         }else{
-            NoteAdaptor na = new NoteAdaptor(this, R.layout.item_note, notes);
+             na = new NoteAdaptor(this, R.layout.item_note, notes);
             nListViewNotes.setAdapter(na);
+            // adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, notes);
+           // nListViewNotes.setAdapter(adapter);
 
             //gets the file based what posistion the user clicked on
             nListViewNotes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
