@@ -187,7 +187,16 @@ public class Utilities {
 
 
 
-    public static void testEvent(com.google.api.services.calendar.Calendar mService) throws IOException {
+    public static void testEvent(GoogleAccountCredential cred) throws IOException {
+        com.google.api.services.calendar.Calendar mService = null;
+
+        HttpTransport transport = AndroidHttp.newCompatibleTransport();
+        JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
+        mService = new com.google.api.services.calendar.Calendar.Builder(
+                transport, jsonFactory, cred)
+                .setApplicationName("Google Calendar API Android Quickstart")
+                .build();
+
         Log.d("Try", "Worked!");
         String eventText = "Appointment ";
         mService.events().quickAdd("primary", "null").setText(eventText).execute();

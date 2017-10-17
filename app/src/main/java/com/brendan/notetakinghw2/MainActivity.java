@@ -54,7 +54,9 @@ public class MainActivity extends AppCompatActivity  {
 
     private ListView nListViewNotes;
 
-    GoogleAccountCredential mCredential;
+    public static GoogleAccountCredential statCred;
+
+    public static GoogleAccountCredential mCredential;
 
     private static final String[] SCOPES = { CalendarScopes.CALENDAR};
 
@@ -93,7 +95,6 @@ public class MainActivity extends AppCompatActivity  {
 
     }
 
-
     private void getResultsFromApi() {
         if (! isGooglePlayServicesAvailable()) {
             acquireGooglePlayServices();
@@ -102,9 +103,12 @@ public class MainActivity extends AppCompatActivity  {
         } else if (! isDeviceOnline()) {
            // mOutputText.setText("No network connection available.");
         } else {
+            statCred = mCredential;
             new MakeRequestTask(mCredential).execute();
         }
     }
+
+
 
     /**
      * Attempts to set the account used with the API credentials. If an account
@@ -308,7 +312,7 @@ public class MainActivity extends AppCompatActivity  {
         @Override
         protected List<String> doInBackground(Void... params) {
             try {
-                Utilities.testEvent(mService);
+                Utilities.testEvent(mCredential);
                 return getDataFromApi();
             } catch (Exception e) {
                 mLastError = e;

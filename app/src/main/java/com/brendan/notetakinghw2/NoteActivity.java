@@ -28,10 +28,6 @@ import java.util.Arrays;
 
 public class NoteActivity extends AppCompatActivity {
 
-    //private static GoogleAccountCredential mCredential = MainActivity.getmCredential();;
-
-
-
     private EditText mEtTitle;
     private EditText mEtContent;
     private TextView mEtMentions;
@@ -69,6 +65,7 @@ public class NoteActivity extends AppCompatActivity {
                 mEtRefrences.setText("Refrences: " + Arrays.toString(nLoadedNote.getnRefs().toArray()).replace("[", "").replace("]", ""));
             }
         }
+
     }
 
     @Override
@@ -138,6 +135,7 @@ public class NoteActivity extends AppCompatActivity {
         }
 
         if (Utilities.saveNote(this, note)) {
+
             Toast.makeText(this, "Your note is saved", Toast.LENGTH_SHORT).show();
 
         } else {
