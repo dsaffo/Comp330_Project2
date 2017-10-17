@@ -187,7 +187,7 @@ public class Utilities {
 
 
 
-    public static void testEvent(GoogleAccountCredential cred) throws IOException {
+    public static void testEvent(GoogleAccountCredential cred,String eventText) throws IOException {
         com.google.api.services.calendar.Calendar mService = null;
 
         HttpTransport transport = AndroidHttp.newCompatibleTransport();
@@ -197,9 +197,49 @@ public class Utilities {
                 .setApplicationName("Google Calendar API Android Quickstart")
                 .build();
 
-        Log.d("Try", "Worked!");
-        String eventText = "Appointment ";
+        //Log.d("Try", "Worked!");
+        //String eventText = "Appointment ";
         mService.events().quickAdd("primary", "null").setText(eventText).execute();
+    }
+
+    public static String removeMarks(Note note){
+        String text = note.getnContent();
+
+        if (note.getnMentions() != null) {
+
+            for (int i = 0; i < note.getnMentions().size(); i++){
+                text = text.replaceAll(note.getnMentions().get(i),"");
+            }
+            Log.d("Remove Mentions", text);
+        }
+        if (note.getnTopics() != null) {
+            for (int i = 0; i < note.getnTopics().size(); i++){
+                text = text.replaceAll(note.getnTopics().get(i),"");
+            }
+            Log.d("Remove Topics", text);
+        }
+        if (note.getnIDs() != null) {
+            for (int i = 0; i < note.getnIDs().size(); i++){
+                text = text.replaceAll(note.getnIDs().get(i),"");
+            }
+            Log.d("Remove IDs", text);
+        }
+        if (note.getnRefs() != null) {
+            for (int i = 0; i < note.getnRefs().size(); i++){
+                text = text.replaceAll(note.getnRefs().get(i),"");
+            }
+            Log.d("Remove Refs", text);
+        }
+        return text;
+    }
+
+    public static boolean gCal(Note note){
+        if (note.getnMentions().contains("@gcal")){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
 
