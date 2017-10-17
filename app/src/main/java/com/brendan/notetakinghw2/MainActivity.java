@@ -89,6 +89,8 @@ public class MainActivity extends AppCompatActivity  {
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(myAdapter);
 
+
+
     }
 
 
@@ -281,6 +283,11 @@ public class MainActivity extends AppCompatActivity  {
      * An asynchronous task that handles the Google Calendar API call.
      * Placing the API calls in their own task ensures the UI stays responsive.
      */
+
+    GoogleAccountCredential getmCredential(){
+        return mCredential;
+    }
+
     private class MakeRequestTask extends AsyncTask<Void, Void, List<String>> {
         private com.google.api.services.calendar.Calendar mService = null;
         private Exception mLastError = null;
@@ -301,7 +308,7 @@ public class MainActivity extends AppCompatActivity  {
         @Override
         protected List<String> doInBackground(Void... params) {
             try {
-                createEvent();
+                Utilities.testEvent(mService);
                 return getDataFromApi();
             } catch (Exception e) {
                 mLastError = e;
@@ -363,21 +370,6 @@ public class MainActivity extends AppCompatActivity  {
             String[] recurrence = new String[]{"RRULE:FREQ=DAILY;COUNT=2"};
             event.setRecurrence(Arrays.asList(recurrence));
 
-            EventAttendee[] attendees = new EventAttendee[]{
-                    new EventAttendee().setEmail("abir@aksdj.com"),
-                    new EventAttendee().setEmail("asdasd@andlk.com"),
-            };
-            event.setAttendees(Arrays.asList(attendees));
-
-            EventReminder[] reminderOverrides = new EventReminder[]{
-                    new EventReminder().setMethod("email").setMinutes(24 * 60),
-                    new EventReminder().setMethod("popup").setMinutes(10),
-            };
-            Event.Reminders reminders = new Event.Reminders()
-                    .setUseDefault(false)
-                    .setOverrides(Arrays.asList(reminderOverrides));
-            event.setReminders(reminders);
-
             String calendarId = "primary";
             try {
                 event = mService.events().insert(calendarId, event).execute();
@@ -426,9 +418,6 @@ public class MainActivity extends AppCompatActivity  {
             }
         }
     }
-
-
-
 
     @Override
     //adds the "+" to the menu

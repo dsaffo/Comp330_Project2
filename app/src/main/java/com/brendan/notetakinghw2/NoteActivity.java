@@ -22,14 +22,15 @@ import com.google.api.services.calendar.model.EventAttendee;
 import com.google.api.services.calendar.model.EventDateTime;
 import com.google.api.services.calendar.model.EventReminder;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class NoteActivity extends AppCompatActivity {
 
-    GoogleAccountCredential mCredential;
+    //private static GoogleAccountCredential mCredential = MainActivity.getmCredential();;
 
-    private static final String[] SCOPES = { CalendarScopes.CALENDAR};
+
 
     private EditText mEtTitle;
     private EditText mEtContent;
@@ -68,11 +69,6 @@ public class NoteActivity extends AppCompatActivity {
                 mEtRefrences.setText("Refrences: " + Arrays.toString(nLoadedNote.getnRefs().toArray()).replace("[", "").replace("]", ""));
             }
         }
-
-        mCredential = GoogleAccountCredential.usingOAuth2(
-                getApplicationContext(), Arrays.asList(SCOPES))
-                .setBackOff(new ExponentialBackOff());
-
     }
 
     @Override
@@ -98,9 +94,12 @@ public class NoteActivity extends AppCompatActivity {
         return true;
     }
 
+
     private void saveNote() {
 
         Note note;
+
+
 
         if(mEtTitle.getText().toString().trim().isEmpty() || mEtContent.getText().toString().trim().isEmpty()){
             Toast.makeText(this, "Please enter a title and content", Toast.LENGTH_SHORT).show();
@@ -151,6 +150,7 @@ public class NoteActivity extends AppCompatActivity {
             if(nLoadedNote == null){
                 finish();
             }else{
+
                 AlertDialog.Builder dialog = new AlertDialog.Builder(this)
                         .setTitle("Are you sure")
                         .setMessage("You are about to delete the note")
