@@ -4,6 +4,8 @@ import android.Manifest;
 import android.accounts.AccountManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,8 +14,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -103,6 +107,7 @@ public class NoteActivity extends AppCompatActivity {
                 .setBackOff(new ExponentialBackOff());
 
         getResultsFromApi();
+        //gWatch("Test", "This is a test");
 
     }
 
@@ -141,6 +146,30 @@ public class NoteActivity extends AppCompatActivity {
         }
     }
 
+    private void gWatch(String title, String content, Note note){
+
+        Intent intent = new Intent(this, NoteActivity.class);
+        String fileName = note.getnDateTime()
+                + Utilities.FILE_EXTENSION;
+
+
+        intent.putExtra("NOTE_FILE", fileName);
+        //startActivity(intent);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Action action = new NotificationCompat.Action.Builder(
+                R.drawable.ic_goto, "Return To Note", pendingIntent).build();
+
+
+        Notification notification = new NotificationCompat.Builder(this).setContentText(content)
+                .setContentTitle(title)
+                .setSmallIcon(R.drawable.ic_note)
+                .extend(new NotificationCompat.WearableExtender().addAction(action))
+                .build();
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
+        notificationManagerCompat.notify(001, notification);
+
+    }
 
 
     /**
@@ -477,6 +506,9 @@ public class NoteActivity extends AppCompatActivity {
             if (Utilities.gCal(note) == true && edit == false){
                 eventText = Utilities.removeMarks(note);
                 new MakeRequestTask(mCredential).execute();
+            }
+            if (Utilities.gWatch(note) == true){
+                gWatch(note.getnTitle(),note.getnContent(),note);
             }
             Toast.makeText(this, "Your note is saved", Toast.LENGTH_SHORT).show();
 

@@ -10,4 +10,8 @@
 
     </string-array>
 
+    <string name="title1">hello</string>
+    <string name="title2">hello2</string>
+    <string name="content1">content</string>
+
 </resources>

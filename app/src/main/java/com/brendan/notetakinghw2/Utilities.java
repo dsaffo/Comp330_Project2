@@ -242,5 +242,14 @@ public class Utilities {
         }
     }
 
+    public static boolean gWatch(Note note){
+        if (note.getnMentions().contains("@gwatch")){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
 
 }
