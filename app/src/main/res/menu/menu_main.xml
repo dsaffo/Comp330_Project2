@@ -20,7 +20,7 @@
         android:title="create"
         app:showAsAction="always" />
 
-    <!--app:actionViewClass="android.support.v7.widget.SearchView"-->
+    <!--app:actionViewClass="android.support.v7.widget.SearchView"
     <item
         android:enabled="true"
         android:title="create"
@@ -28,7 +28,7 @@
         android:icon="@android:drawable/ic_menu_search"
         app:actionViewClass="android.widget.SearchView"
         android:orderInCategory="1"
-        app:showAsAction="ifRoom|collapseActionView"/>
+        app:showAsAction="ifRoom|collapseActionView"/>-->
 <!--
     <item
         android:enabled="true"

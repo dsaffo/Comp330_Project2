@@ -9,21 +9,35 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 
 /**
  * Created by Brendan on 10/4/17.
  */
 
-public class NoteAdaptor extends ArrayAdapter<Note> {
+public class NoteAdaptor extends ArrayAdapter<Note> implements Filterable{
+
+    private ArrayList notes = null;
+    private ArrayList<Note> arraylist;
+    Context mContext;
+    LayoutInflater inflater;
 
 
     public NoteAdaptor(@NonNull Context context, @LayoutRes int resource, @NonNull ArrayList<Note> notes) {
         super(context, resource, notes);
+        mContext = context;
+        this.notes = notes;
+        inflater = LayoutInflater.from(mContext);
+        this.arraylist = new ArrayList<>();
+        this.arraylist.addAll(notes);
+
     }
 
     @NonNull
@@ -68,5 +82,21 @@ public class NoteAdaptor extends ArrayAdapter<Note> {
 
         }
         return convertView;
+    }
+
+    public void filter(String charText) {
+        charText = charText.toLowerCase(Locale.getDefault());
+        notes.clear();
+        if (charText.length() == 0) {
+            notes.addAll(arraylist);
+        } else {
+            for (Note note : arraylist) {
+                if (note.getnContent().toLowerCase().contains(charText) ||
+                        note.getnTitle().toLowerCase().contains(charText)) {
+                    notes.add(note);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 }
