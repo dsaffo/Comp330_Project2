@@ -32,4 +32,5 @@ dependencies {
         exclude group: 'org.apache.httpcomponents'
     }
 
+    testCompile 'junit:junit:4.12'
 }

@@ -48,6 +48,7 @@ import com.google.api.services.calendar.model.Events;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -66,9 +67,7 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         nListViewNotes = (ListView) findViewById(R.id.mainListViewNotes);
-
         notes = Utilities.getAllSavedNotes(this);
-
         na = new NoteAdaptor(this, R.layout.item_note, notes);
         nListViewNotes.setAdapter(na);
 
@@ -104,7 +103,16 @@ public class MainActivity extends AppCompatActivity  {
                 startActivity(newNoteActivity);
                 break;
             case R.id.action_main_sort:
-                    //PUT YOUR CODE HERE
+                notes = Utilities.topoSort(Utilities.getAllSavedNotes(this));
+
+                if(notes == null || notes.size() ==0){
+                    Toast.makeText(this, "You have no notes saved!", Toast.LENGTH_SHORT).show();
+
+                }else {
+                    na = new NoteAdaptor(this, R.layout.item_note, notes);
+                    nListViewNotes.setAdapter(na);
+                }
+
         }
         return true;
     }

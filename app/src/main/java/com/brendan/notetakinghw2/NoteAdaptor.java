@@ -61,7 +61,8 @@ public class NoteAdaptor extends ArrayAdapter<Note> implements Filterable{
 
             //in case the note is very long, we only preview a substring of that note
             if (note.getnContent().length() > 50){
-                content.setText(note.getnContent().substring(0, 50));
+                String newText = note.getnContent().substring(0, 50);
+                content.setText(newText);
             }else{
                 content.setText(note.getnContent());
             }

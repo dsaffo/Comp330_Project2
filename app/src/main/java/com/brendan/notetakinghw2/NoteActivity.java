@@ -477,6 +477,7 @@ public class NoteActivity extends AppCompatActivity {
 
         if (Utilities.saveNote(this, note)) {
             if (Utilities.gCal(note) == true && edit == false){
+                Log.d("Gcal", "@gcal found");
                 eventText = Utilities.removeMarks(note);
                 new MakeRequestTask(mCredential).execute();
             }

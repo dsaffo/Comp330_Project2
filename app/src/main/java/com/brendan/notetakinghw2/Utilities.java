@@ -20,8 +20,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.google.api.services.calendar.Calendar;
@@ -239,4 +241,59 @@ public class Utilities {
             return false;
         }
     }
+
+    public static ArrayList<Note> topoSort(ArrayList<Note> notes){
+        //ArrayList<Note> sortedNotes = new ArrayList<>();
+        Note[] sortedNotes = notes.toArray(new Note[notes.size()]);;
+        ArrayList<String> allIds = new ArrayList<>();
+        int [] indegree = new int[notes.size()];
+        ArrayList<String> allRefs = new ArrayList<>();
+
+        for (int i = 0; i < notes.size(); i++) {
+            if (notes.get(i).getnRefs() != null)
+                allRefs.addAll(notes.get(i).getnRefs());
+        }
+
+        for (int i = 0; i < notes.size(); i++) {
+            if (notes.get(i).getnIDs() != null)
+                allIds.addAll(notes.get(i).getnIDs());
+        }
+        Log.d("refs:", allRefs.toString());
+        for (int i = 0; i < allIds.size() ; i++) {
+            String search = allIds.get(i).replaceFirst("!","^");
+            int occ = Collections.frequency(allRefs, search);
+            indegree[i] = occ;
+            String val = String.valueOf(occ);
+            Log.d("indegrees:", val);
+        }
+
+
+
+        //Log.d("indegree", String.valueOf(indegree[2]));
+
+        for (int i = 0; i < notes.size() - 1; i++)
+        {
+            int index = i;
+            for (int j = i + 1; j < notes.size(); j++) {
+                if (indegree[j] < indegree[index])
+                    index = j;
+            }
+
+            int smallerNumber = indegree[index];
+            indegree[index] = indegree[i];
+            indegree[i] = smallerNumber;
+
+            Note moveNote = sortedNotes[index];
+            sortedNotes[index] = sortedNotes[i];
+            sortedNotes[i] = moveNote;
+
+
+        }
+
+        Log.d("indegrees:", Arrays.toString(indegree));
+        return  new ArrayList<>(Arrays.asList(sortedNotes));
+    }
+
+
+
 }

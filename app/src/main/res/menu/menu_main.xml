@@ -9,16 +9,16 @@
         android:enabled="true"
         android:icon="@android:drawable/ic_menu_add"
         android:orderInCategory="1"
-        android:title="create"
+        android:title="asdasd"
         app:showAsAction="always" />
 
     <item
         android:enabled="true"
-        android:title="create"
+        android:title="asdasdlk"
         android:id="@+id/action_main_sort"
         android:icon="@android:drawable/ic_menu_sort_by_size"
-        app:actionViewClass="android.widget.SearchView"
         android:orderInCategory="1"
         app:showAsAction="ifRoom|collapseActionView"/>
+
 
 </menu>
