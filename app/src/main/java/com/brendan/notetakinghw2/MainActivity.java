@@ -67,9 +67,7 @@ public class MainActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_main);
         nListViewNotes = (ListView) findViewById(R.id.mainListViewNotes);
 
-
         notes = Utilities.getAllSavedNotes(this);
-
 
         na = new NoteAdaptor(this, R.layout.item_note, notes);
         nListViewNotes.setAdapter(na);
@@ -84,30 +82,15 @@ public class MainActivity extends AppCompatActivity  {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                //na.getFilter().filter(newText);
                 na.filter(newText);
                 Log.d("test", newText);
                 return false;
             }
         });
-
-        /*
-        Spinner mySpinner = (Spinner) findViewById(R.id.spinner1);
-
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1,
-                getResources().getStringArray(R.array.search_types));
-
-        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mySpinner.setAdapter(myAdapter);*/
-
-
-
     }
 
-
-
     @Override
-    //adds the "+" to the menu
+    //adds the menu
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
@@ -117,10 +100,11 @@ public class MainActivity extends AppCompatActivity  {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
             case R.id.action_main_new_note:
-                //start NoteActivity in NewNote mode
                 Intent newNoteActivity = new Intent(this, NoteActivity.class);
                 startActivity(newNoteActivity);
                 break;
+            case R.id.action_main_sort:
+                    //PUT YOUR CODE HERE
         }
         return true;
     }
@@ -130,8 +114,7 @@ public class MainActivity extends AppCompatActivity  {
         super.onResume();
         nListViewNotes.setAdapter(null);
 
-
-        /*ArrayList<Note>*/ notes = Utilities.getAllSavedNotes(this);
+        notes = Utilities.getAllSavedNotes(this);
 
         if(notes == null || notes.size() ==0){
             Toast.makeText(this, "You have no notes saved!", Toast.LENGTH_SHORT).show();
@@ -140,25 +123,6 @@ public class MainActivity extends AppCompatActivity  {
 
              na = new NoteAdaptor(this, R.layout.item_note, notes);
              nListViewNotes.setAdapter(na);
-
-
-            /*searchView = (SearchView) findViewById(R.id.searchView);
-
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    return false;
-                }
-
-                @Override
-                public boolean onQueryTextChange(String newText) {
-                    na.getFilter().filter(newText);
-                    //na.notifyDataSetInvalidated();
-                    return false;
-                }
-            });*/
-
-
 
             //gets the file based what posistion the user clicked on
             nListViewNotes.setOnItemClickListener(new AdapterView.OnItemClickListener() {

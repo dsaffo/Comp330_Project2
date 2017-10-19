@@ -31,10 +31,7 @@ import com.google.api.services.calendar.model.Event;
  * Created by Brendan on 10/3/17.
  */
 
-
 public class Utilities {
-
-
 
     public static final String FILE_EXTENSION = ".bin";
 
@@ -47,7 +44,6 @@ public class Utilities {
         FileOutputStream fos;
         ObjectOutputStream oos;
 
-
         try{//try to save to the private storage of the application
             fos = context.openFileOutput(fileName, context.MODE_PRIVATE);
             oos = new ObjectOutputStream(fos);
@@ -59,9 +55,7 @@ public class Utilities {
         } catch (IOException e){
             e.printStackTrace();
             return false; //tell the user something went wrong...should only happen if there's no space
-
         }
-
         return true;
     }
 
@@ -149,7 +143,6 @@ public class Utilities {
                 Log.d("new", IDs.get(i).toString());
                 currentIDs.add(IDs.get(i));
                 newIDs.add(IDs.get(i));
-
             }
         }
         Log.d("list of note IDs", Arrays.toString(newIDs.toArray()).replace("[", "").replace("]", ""));
@@ -173,8 +166,6 @@ public class Utilities {
         return mentions;
     }
 
-
-
     public static void deleteNote(Context context, String fileName) {
         File dir = context.getFilesDir();
         File file = new File(dir, fileName);
@@ -197,8 +188,6 @@ public class Utilities {
                 .setApplicationName("Google Calendar API Android Quickstart")
                 .build();
 
-        //Log.d("Try", "Worked!");
-        //String eventText = "Appointment ";
         mService.events().quickAdd("primary", "null").setText(eventText).execute();
     }
 
@@ -250,6 +239,4 @@ public class Utilities {
             return false;
         }
     }
-
-
 }

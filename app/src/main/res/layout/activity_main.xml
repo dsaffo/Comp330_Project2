@@ -6,14 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.brendan.notetakinghw2.MainActivity">
-    <!--
-    <Spinner
-        android:id="@+id/spinner1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:drawable/btn_dropdown"
-        android:orderInCategory="0"
-        android:showAsAction="always" />-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,7 +21,6 @@
             android:id="@+id/mainListViewNotes"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
 
     </LinearLayout>
 

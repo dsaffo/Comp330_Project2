@@ -56,12 +56,8 @@ public class NoteAdaptor extends ArrayAdapter<Note> implements Filterable{
             TextView title =  (TextView) convertView.findViewById(R.id.list_note_title);
             TextView date =  (TextView) convertView.findViewById(R.id.list_note_date);
             TextView content =  (TextView) convertView.findViewById(R.id.list_note_content);
-            //TextView mentions =  (TextView) convertView.findViewById(R.id.list_note_mentions);
-            //TextView topics =  (TextView) convertView.findViewById(R.id.list_note_topics);
-
             title.setText(note.getnTitle());
             date.setText(note.getDateTimeAsString(getContext()));
-            //content.setText(note.getnContent());
 
             //in case the note is very long, we only preview a substring of that note
             if (note.getnContent().length() > 50){
@@ -69,17 +65,6 @@ public class NoteAdaptor extends ArrayAdapter<Note> implements Filterable{
             }else{
                 content.setText(note.getnContent());
             }
-
-            /**if (note.getnContent().length() > 0) {
-                String mentionList = Arrays.toString(note.getnMentions().toArray()).replace("[", "").replace("]", "");
-                mentions.setText("Mentions: " + mentionList);
-            }
-
-            if (note.getnContent().length() > 0) {
-                String topicList = Arrays.toString(note.getnTopics().toArray()).replace("[", "").replace("]", "");
-                topics.setText("Topics: " + topicList);
-            }**/
-
         }
         return convertView;
     }

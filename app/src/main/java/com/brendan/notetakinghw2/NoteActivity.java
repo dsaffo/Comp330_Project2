@@ -70,8 +70,6 @@ public class NoteActivity extends AppCompatActivity {
     private TextView mEtTopics;
     private TextView mEtIdentifiers;
     private TextView mEtRefrences;
-
-
     private String nNoteFileName;
     private Note nLoadedNote;
 
@@ -107,8 +105,6 @@ public class NoteActivity extends AppCompatActivity {
                 .setBackOff(new ExponentialBackOff());
 
         getResultsFromApi();
-        //gWatch("Test", "This is a test");
-
     }
 
     @Override
@@ -130,7 +126,6 @@ public class NoteActivity extends AppCompatActivity {
                 deleteNote();
 
         }
-
         return true;
     }
 
@@ -140,9 +135,7 @@ public class NoteActivity extends AppCompatActivity {
         } else if (mCredential.getSelectedAccountName() == null) {
             chooseAccount();
         } else if (! isDeviceOnline()) {
-            // mOutputText.setText("No network connection available.");
         } else {
-            //new MakeRequestTask(mCredential).execute();
         }
     }
 
@@ -152,14 +145,10 @@ public class NoteActivity extends AppCompatActivity {
         String fileName = note.getnDateTime()
                 + Utilities.FILE_EXTENSION;
 
-
         intent.putExtra("NOTE_FILE", fileName);
-        //startActivity(intent);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
         NotificationCompat.Action action = new NotificationCompat.Action.Builder(
                 R.drawable.ic_goto, "Return To Note", pendingIntent).build();
-
 
         Notification notification = new NotificationCompat.Builder(this).setContentText(content)
                 .setContentTitle(title)
@@ -170,8 +159,6 @@ public class NoteActivity extends AppCompatActivity {
         notificationManagerCompat.notify(001, notification);
 
     }
-
-
     /**
      * Attempts to set the account used with the API credentials. If an account
      * name was previously saved it will use that one; otherwise an account
@@ -224,7 +211,6 @@ public class NoteActivity extends AppCompatActivity {
         switch(requestCode) {
             case REQUEST_GOOGLE_PLAY_SERVICES:
                 if (resultCode != RESULT_OK) {
-                    //mOutputText.setText(
                     //        "This app requires Google Play Services. Please install " +
                     //               "Google Play Services on your device and relaunch this app.");
                 } else {
@@ -327,8 +313,6 @@ public class NoteActivity extends AppCompatActivity {
             showGooglePlayServicesAvailabilityErrorDialog(connectionStatusCode);
         }
     }
-
-
     /**
      * Display an error dialog showing that Google Play Services is missing
      * or out of date.
@@ -344,7 +328,6 @@ public class NoteActivity extends AppCompatActivity {
                 REQUEST_GOOGLE_PLAY_SERVICES);
         dialog.show();
     }
-
     /**
      * An asynchronous task that handles the Google Calendar API call.
      * Placing the API calls in their own task ensures the UI stays responsive.
@@ -414,9 +397,6 @@ public class NoteActivity extends AppCompatActivity {
             return eventStrings;
         }
 
-
-
-
         @Override
         protected void onPreExecute() {
             //mOutputText.setText("");
@@ -456,12 +436,9 @@ public class NoteActivity extends AppCompatActivity {
         }
     }
 
-
-
     private void saveNote() {
 
         Note note;
-
         Boolean edit;
 
         if(mEtTitle.getText().toString().trim().isEmpty() || mEtContent.getText().toString().trim().isEmpty()){
@@ -470,10 +447,6 @@ public class NoteActivity extends AppCompatActivity {
         }
 
         //creating a new note using the three parameters from the constructor
-       /* Note note = new Note(System.currentTimeMillis(), mEtTitle.getText().toString(), mEtContent.getText().toString()
-                , Utilities.sortMarks("@", mEtContent.getText().toString()), Utilities.sortMarks("#", mEtContent.getText().toString()));
-        */
-
         if(nLoadedNote == null){
             edit = false;
             Long time = System.currentTimeMillis();
@@ -486,7 +459,7 @@ public class NoteActivity extends AppCompatActivity {
             ArrayList<String> Refs = Utilities.sortMarks("^", content);
             Log.d("is null?", "yes");
             note = new Note(time,title,content,mentions,topics,Ids,Refs);
-            //Utilities.createEvent(mCredential);
+
         }else{
             edit = true;
             Long time = System.currentTimeMillis();
@@ -540,7 +513,5 @@ public class NoteActivity extends AppCompatActivity {
                 dialog.show();
             }
     }
-
-
 }
 
