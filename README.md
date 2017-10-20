@@ -35,3 +35,16 @@ Who maintains and contributes to the project.
 Katelyn Schoenberger is the project manager for this group. She organized the overall structure of the project. Jorge
 Ramirez Rojas was the creator of the Unit testing for the project. David Saffo and Brendan Shea were the main developers of
 the mobile application. 
+
+Program Stucture and Classes
+	-MainActivity: Our main class and home display for the app responsible for most navigation, list view, and search view
+	-Note: Our note object class defines the parts that make up a note mainly the title,date,content, and various marks
+	-NoteActivity: Our activity for creating/editing/and deleting notes google calander permisions are created here as well
+	-NoteAdaptor: Takes the list of notes and displays them as a list view for MainActivity
+	-Utilities: Class for static functions used throughout the app for everything from getting notes to sorting marks
+	-UnitTest: Class for unit testing of the various sort functions
+	
+Support Files:
+	-330NoteUML.png: Abstracted UML of our design objectives
+	-UserGUIDE.pdf: User guide and instructional document detailing mission, method, and install/running procedures 
+
